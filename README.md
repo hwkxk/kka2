@@ -6,7 +6,10 @@
 `RCLONE_DESTINATION` 【上传路径 如：mypan1:downloaded (mypan1是在配置RCLONE时设置的name)】
 `ARIA2C_SECRET`【ARIA2C 访问密钥】
 
-# RCLONE_CONFIG 获取方式 下面在windows挂载onedrive举例
+# RCLONE_CONFIG Rclone配置信息获取方法
+
+在windows挂载onedrive举例
+
 下载Rclone：[https://rclone.org/downloads/](https://rclone.org/downloads/)
 
 解压打开、在此目录下运行CMD：如图：
@@ -28,14 +31,14 @@ n) New remote
 s) Set configuration password
 q) Quit config
 n/s/q> n   //这里输入n 新建远程挂载
-name> test  //名称（自定义）记住设置盘名 ，设置RCLONE_DESTINATION变量需要用到
+name> mypan1  //名称（自定义）记住设置 ，设置RCLONE_DESTINATION变量需要用到
 ...
 ...后面步骤省略，自行上百度、Google搜索 Windows使用rclone挂载xxxx教程。
 ...
 ```
 配置完成后就可以在 `C:\Users\用户名\.config\rclone\rclone.conf` 找到配置文件
 
-打开配置文件后在每一项后面添加`\n`，
+打开配置文件后在每一项后面添加`\n`
 ```conf
 [xxxx] \n
 type =  xxx \n
@@ -63,7 +66,7 @@ drive_type = xxx \n
 
 设置 `ARIA2C_SECRET` 为ARIA2C访问密钥，如：`123456`
 
-以 heroku 平台为例（注意：现在应该被滥用，部署有很大几率被封号，请尝试更换其他平台部署）
+以 heroku 平台为例（注意：现在在heroku部署有很大几率被封号，请尝试更换其他平台部署）
 
 [![yuSbGQ.md.jpg](https://s3.ax1x.com/2021/02/02/yuSbGQ.md.jpg)](https://imgchr.com/i/yuSbGQ)
 
