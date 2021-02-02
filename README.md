@@ -53,12 +53,6 @@ drive_type = xxx \n
 
 [![ynXhzq.md.jpg](https://s3.ax1x.com/2021/02/02/ynXhzq.md.jpg)](https://imgchr.com/i/ynXhzq)
 
-```conf
-type =  xxx \n
-token = {xxx} \n
-drive_id = xxx \n
-drive_type = xxx \n
-```
 # 配置平台的环境变量
 
 > 你可以在这找到免费的平台进行部署： https://free-for.dev/
