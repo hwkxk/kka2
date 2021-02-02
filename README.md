@@ -1,57 +1,72 @@
-# Aria2c+AriaNg
+## Aria2c+AriaNg 离线下载并自动上传到Rclone挂载的网盘
 
-> It it recommended to find other platform than Heroku to deploy this as they are actively prevent this from deploying there.
-> You can find many free platforms here: https://free-for.dev/
 
-## Deploying On Heroku
+部署到容器平台需要设置的变量：
+`RCLONE_CONFIG` 【RCLONE配置信息】
+`RCLONE_DESTINATION` 【上传路径 如：mypan1:downloaded (mypan1是在配置RCLONE时设置的name)】
+`ARIA2C_SECRET`【ARIA2C 访问密钥】
 
-### Requirement
+# RCLONE_CONFIG 获取方式 下面在windows挂载onedrive举例
+下载Rclone：[https://rclone.org/downloads/](https://rclone.org/downloads/)
 
-* [Docker](https://www.docker.com/)
-* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-* [git](https://git-scm.com/)
-* Ability to use terminal
+解压打开、在此目录下运行CMD：如图：
+![解压在地址栏输入cmd](https://s3.ax1x.com/2021/02/02/ynb8E9.jpg)
 
-### Steps
+在cmd里输入
+```conf
+rclone config
+```
+注意：如果运行cmd输入rclone config 提示'rclone'不是内部或外部命令，也不是可运行的程序或批处理文件。
+说明cmd没在rclone目录下运行,或者将rclone.exe移动到C:/windows/system32文件夹下然后打开系统cmd运行命令！
 
-1. Run `heroku login` to login, then `heroku container:login` too.
-2. Clone this repository and enter it. (PS: Please run `git config --global core.autocrlf false` before `git clone` if you are using Windows.)
-3. Run `heroku apps:create APP_NAME` to create it.
-4. Copy `.env.template` to `.env`, and edit it accordingly.
-5. Run `heroku container:push web -a APP_NAME` and `heroku container:release web -a APP_NAME`.
-6. Run `heroku open -a APP_NAME` and it will open your browser to deployed instance. 
-
-### Optional: Sync downloaded file to your cloud drive using Rclone
-
-1. Setup Rclone locally by following offical instructions: https://rclone.org/docs/
-2. Find your `rclone.conf` file, it should look like this:
+执行后的命令：
 
 ```conf
-[DRIVENAME]
-type = WHATEVER
-client_id = WHATEVER
-client_secret = WHATEVER
-scope = WHATEVER
-token = WHATEVER
-
-others entries...
+D:\rclone-v1.51.0-windows-amd64>rclone config  //这里是开头的 rclone config  配置rclone
+No remotes found - make a new one
+n) New remote
+s) Set configuration password
+q) Quit config
+n/s/q> n   //这里输入n 新建远程挂载
+name> test  //名称（自定义）记住设置盘名 ，设置RCLONE_DESTINATION变量需要用到
+...
+...后面步骤省略，自行上百度、Google搜索 Windows使用rclone挂载xxxx教程。
+...
 ```
+配置完成后就可以在 `C:\Users\用户名\.config\rclone\rclone.conf` 找到配置文件
 
-3. Find the drive you want to use, and copy its `type = ...` to  `... token = ...` section.
-4. Replace all linebreaks with `\n`.
-5. That text will be `RCLONE_CONFIG` in `.env` file.
-6. `DOWNLOAD_DESTINATION` in `.env` is a path starting with `/`.
+打开配置文件后在每一项后面添加`\n`，
+```conf
+[xxxx] \n
+type =  xxx \n
+token = {xxx} \n
+drive_id = xxx \n
+drive_type = xxx \n
+```
+如图：
 
-## FAQ
+[![ynXhzq.md.jpg](https://s3.ax1x.com/2021/02/02/ynXhzq.md.jpg)](https://imgchr.com/i/ynXhzq)
 
-### It automatically stop after 30 minutes, and files were lost.
+```conf
+type =  xxx \n
+token = {xxx} \n
+drive_id = xxx \n
+drive_type = xxx \n
+```
+# 配置平台的环境变量
 
-It is because Heroku's free dyno will idle when there is no incoming request within 30 minutes, and your files will be deleted too, this is why you might want to use Rclone.
+> 你可以在这找到免费的平台进行部署： https://free-for.dev/
 
-### Can I delete files?
+部署好后，新建环境变量 `RCLONE_CONFIG` 把上面添加好`\n`的配置内容全部复制进去。
 
-No. Just wait for its idling, and your files will be deleted.
+设置 `RCLONE_DESTINATION` 为OneDrive网盘上传路径，如：`mypan1:downloaded`
 
-### You said it will idle automatically, so I can't download large files?
+设置 `ARIA2C_SECRET` 为ARIA2C访问密钥，如：`123456`
 
-It will generate fake requests when there are downloading or uploading tasks, so it won't idle when your files aren't completed.
+以 heroku 平台为例（注意：现在应该被滥用，部署有很大几率被封号，请尝试更换其他平台部署）
+
+[![yuSbGQ.md.jpg](https://s3.ax1x.com/2021/02/02/yuSbGQ.md.jpg)](https://imgchr.com/i/yuSbGQ)
+
+
+# 修改于
+https://github.com/maple3142/aria2c-ariang
