@@ -2,8 +2,11 @@
 
 
 部署到容器平台需要设置的变量：
+
 `RCLONE_CONFIG` 【RCLONE配置信息】
+
 `RCLONE_DESTINATION` 【上传路径 如：mypan1:downloaded (mypan1是在配置RCLONE时设置的name)】
+
 `ARIA2C_SECRET`【ARIA2C 访问密钥】
 
 # RCLONE_CONFIG Rclone配置信息获取方法
