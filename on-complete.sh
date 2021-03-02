@@ -15,9 +15,6 @@
 # Aria2 Pro (Docker) 无需修改，通过目录映射进行设置。
 DOWNLOAD_PATH='./downloads'
 
-# Rclone 配置时填写的网盘名(name)
-DRIVE_NAME='kang'
-
 ## 文件过滤 ##
 
 # 限制最低上传大小，仅 BT 多文件下载时有效，用于过滤无用文件。低于此大小的文件将被删除，不会上传。
@@ -140,12 +137,12 @@ fi
 
 if [ "${TOP_PATH}" = "${FILE_PATH}" ] && [ $2 -eq 1 ]; then # 普通单文件下载，移动文件到设定的网盘文件夹。
     UPLOAD_PATH="${FILE_PATH}"
-    REMOTE_PATH="${DRIVE_NAME}:$RCLONE_DESTINATION"
+    REMOTE_PATH="$RCLONE_DESTINATION"
     UPLOAD
     exit 0
 elif [ "${TOP_PATH}" != "${FILE_PATH}" ] && [ $2 -gt 1 ]; then # BT下载（文件夹内文件数大于1），移动整个文件夹到设定的网盘文件夹。
     UPLOAD_PATH="${TOP_PATH}"
-    REMOTE_PATH="${DRIVE_NAME}:$RCLONE_DESTINATION/${RELATIVE_PATH%/*}"
+    REMOTE_PATH="$RCLONE_DESTINATION/${RELATIVE_PATH%/*}"
     CLEAN_UP
     UPLOAD
     exit 0
