@@ -7,6 +7,6 @@ RUN bash setup.sh
 COPY yarn.lock .
 RUN yarn
 COPY . .
-ENV PORT=8080
-EXPOSE 8080
+ENV PORT=80
+EXPOSE 80
 CMD ["bash", "start.sh"]
